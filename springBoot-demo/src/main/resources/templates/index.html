@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>Spring Boot and Thymeleaf example</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link th:src="@{static/bootstrap-3.3.7/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:src="@{static/bootstrap-3.3.7/css/bootstrap-theme.min.css}"  />
+</head>
+<!-- 1.通过xmlns:th="http://www.thymeleaf.org" 命名空间，将镜头页面转换为动态的视图
+	需要进行动态处理的元素将使用“th:" 为浅醉
+ -->
+<!-- 2.通过@() 引用Web静态资源 -->
+<body>
+<script type="text/javascript" th:src="@{static/jquery-3.2.1.js}"></script>
+<script type="text/javascript" th:src="@{static/bootstrap-3.3.7/js/bootstrap.min.js}"></script>
+	<h3>Spring Boot and Thymeleaf</h3>
+	<p>hello world ！</p>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">访问Model</h3>
+		</div>
+		<div class="panel-body">
+			<span th:text="${singlePerson.name}"></span>
+			<!-- 2.访问model的属性值，与jsp el 很像 -->
+		</div>
+	</div>
+		<!-- 3. 数据迭代-->
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">列表</h3>
+		</div>
+		<div class="panel-body">
+			<ul class="list-group">
+				<li class="list-group-item" th:each="person:${people}">
+					<span th:text="${person.name}"></span>
+					<span th:text="${person.age}"></span>
+				</li>
+			</ul>
+		</div>
+	</div>
+		<!-- 4. 数据判断 . 通过 ${not #lists.isEmpty(people)} 表达式判断people是否为空。
+			Thymeleaf 支持 > 、< 、>= 、<= 、==、！= 作为表达式条件，同时也支持将SpringEL表达式语言用于条件中
+		-->
+	<div th:if="${not #lists.isEmpty(people)}">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">列表</h3>
+			</div>
+			<div class="panel-body">
+				<ul class="list-group">
+					<li class="list-group-item" th:each="person:${people}">
+						<span th:text="${person.name}"></span>
+						<span th:text="${person.age}"></span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- 5. 在js中访问Model . [[${model}]] 格式获取实际的值-->
+	<script th:inline="javascript">
+		var single = [[${singlePerson}]];
+		console.log(single.name+"/"+single.age)
+	</script>
+</body>
+</html>

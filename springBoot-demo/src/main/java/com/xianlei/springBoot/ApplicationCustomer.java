@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.xianlei.boot.service.HelloService;
 
-@RestController
-@SpringBootApplication
-public class Application {
+//@RestController
+//@SpringBootApplication
+public class ApplicationCustomer {
 	
 	@Autowired
 	private HelloService helloService;
@@ -21,7 +21,7 @@ public class Application {
 	}
 	
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(ApplicationCustomer.class, args);
 	}
 
 }
